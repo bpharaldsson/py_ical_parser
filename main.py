@@ -1,38 +1,41 @@
-
-# python 3.2
-
-
-dict = { 0:[summary], 1:[], 2:[location, summary], 3:[desciption], 4:[summary], 5:[summary] }
-
-
 def main():
-    file = sys.argv[1]
-    new_file = sys.argv[2]
-    
-    file = open(file, 'r')
-    new_file = open(new_file, 'w')
+    file = open('C:\\Users\\sc1\\Desktop\\timeedit.ics', 'r')
+
+    new_file = open('C:\\Users\\sc1\\Desktop\\time2.ics', 'w')
 
     while 1:
         line = file.readline()
 
-        if 'SUMMARY:' not in line:
+        if line == '': break
+        if ':' not in line: continue
+    
+        if line[0:8] != 'SUMMARY:':
             new_file.write(line)
 
         else:
             summary     = []
             location    = []
             description = []
+            dict = { 0:[summary], 1:[], 2:[location, summary], 3:[description], 4:[summary], 5:[summary] }
+            translations = { 'F0006T' : 'Fysik', 'M0032M': 'Matte' }
 
-            words = line[7:].split('\n')
+            words = line[8:].split('\\n')
 
-            for i, word in enum(words):
-                if word[0] == '-': word = ''
+            for i, word in enumerate(words):
+                word = translations.get(word, word)
+                if '-' in word: word = ''
 
-                for list in dict[i]:
+                for list in dict.get(i, []):
                     list.append(word)
 
-            new_file.write('DESCRIPTION: ' + description)
-            new_file.write('LOCATION: '    + location)
-            new_file.write('SUMMARY: '     + ' '.join(summary))
+            new_file.write('DESCRIPTION:' + ' '.join(description)    + '\n')
+            new_file.write('LOCATION:'    + ' '.join(location)     + '\n')
+            new_file.write('SUMMARY:'     + ' '.join(summary) + '\n')
+
+            
 
     new_file.close()
+    print('done')
+
+if __name__ == '__main__':
+    main()
