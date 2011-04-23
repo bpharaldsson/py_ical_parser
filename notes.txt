@@ -1,0 +1,12 @@
+First step is to turn this:
+
+             v                      v    v       v         (v)
+SUMMARY: M0032M1:43898-V11.Prg\nA117\nSLM\nFöreläsn\n----------\n TCTDA-Å
+
+into this:
+
+
+DESCRIPTION:OLE
+LOCATION:E632
+SUMMARY:F0006T E632 Föreläsn
+
